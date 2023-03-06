@@ -25,8 +25,7 @@ def hello_world():
                 if users[i] == password:
                     session.clear()
                     session['user_id'] = i
-                    # print(session)
-                    return redirect(url_for('index/1'))
+                    return redirect(url_for('index'))
     return render_template('index.html')
 
 
