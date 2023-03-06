@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'">
+    <title>Post</title>
+    <link rel="stylesheet" href="../static/">
+</head>
+<header>
+    <h1>Posts</h1>
+</header>
+<body>
+{% for post in posts %}
+    <h1>{{ post }}</h1>
+    <p>{{ posts[post] }}</p>
+    {% for comment in comments %}
+        {% if post == comment %}
+            <p>{{ comments[comment] }}</p>
+        {% endif %}
+    {% endfor %}
+    <form method="post" id="commentForm" role="form" name="commentForm">
+        <label for="comment">Comment</label>
+        <input name="comment" id="comment" required>
+        <input type="text" name="post" id="post" required value="{{ post }}" hidden="hidden">
+        <input type="submit" value="submit">
+    </form>
+{% endfor %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+</body>
+</html>
+<script>
+    $('#commentForm').validate({
+        rules: {
+            comment: {
+                required: true,
+                minlength: 5
+            }
+        },
+        messages: {
+            comment: {
+                required: "Поле имя обязательно для заполнения",
+                minlength: jQuery.validator.format("Длина имени должна быть больше 5-ти символов")
+            }
+        },
+        submitHandler: function () {
+            form.submit();
+        }
+    });
+</script>
