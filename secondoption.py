@@ -11,7 +11,7 @@ comments = {'firstPost': ['Web security is very important']}
 
 @app.after_request
 def add_header(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'"
     return response
 
 
@@ -36,7 +36,7 @@ def index():
         postName = request.form['post']
         comment = request.form['comment']
         comments[postName].append(comment)
-    return render_template('third.html', posts=posts, comments=comments)
+    return render_template('post.html', posts=posts, comments=comments)
 
 
 if __name__ == '__main__':

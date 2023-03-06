@@ -11,7 +11,9 @@ comments = {'firstPost': ['Web security is very important']}
 
 @app.after_request
 def add_header(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src " \
+                                                  "https://code.jquery.com/jquery-3.3.1.slim.min.js " \
+                                                  "https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js 'self' "
     return response
 
 
@@ -25,7 +27,6 @@ def hello_world():
                 if users[i] == password:
                     session.clear()
                     session['user_id'] = i
-                    # print(session)
                     return redirect(url_for('index/1'))
     return render_template('index.html')
 
@@ -36,7 +37,7 @@ def index():
         postName = request.form['post']
         comment = request.form['comment']
         comments[postName].append(comment)
-    return render_template('third.html', posts=posts, comments=comments)
+    return render_template('post.html', posts=posts, comments=comments)
 
 
 if __name__ == '__main__':

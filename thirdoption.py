@@ -11,7 +11,7 @@ comments = {'firstPost': ['Web security is very important']}
 
 @app.after_request
 def add_header(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src https://cdn.jsdelivr.net:* https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js 'self' "
     return response
 
 
@@ -25,7 +25,6 @@ def hello_world():
                 if users[i] == password:
                     session.clear()
                     session['user_id'] = i
-                    # print(session)
                     return redirect(url_for('index/1'))
     return render_template('index.html')
 

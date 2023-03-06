@@ -1,4 +1,5 @@
-$('#commentForm').validate({
+jQuery(document).ready(function($) {
+    $('#commentForm').validate({
         rules: {
             comment: {
                 required: true,
@@ -15,3 +16,4 @@ $('#commentForm').validate({
             form.submit();
         }
     });
+});
