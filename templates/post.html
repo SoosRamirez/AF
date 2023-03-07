@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Post</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="../static/js/validate.js"></script>
 </head>
@@ -22,7 +20,7 @@
     <form method="post" id="commentForm" role="form" name="commentForm">
         <label for="comment">Comment</label>
         <input name="comment" id="comment" required>
-        <input type="text" name="post" id="post" required value="{{ post }}" hidden="hidden">
+        <input type="text" name="post" id="post" required value="{{ post }}" hidden>
         <input type="submit" value="submit">
     </form>
 {% endfor %}

@@ -1,7 +1,9 @@
+import secrets
+
 from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = 'super secret key'
+app.secret_key = secrets.token_hex(64)
 
 users = {'soos': '1234',
          'alex': '4321'}
@@ -12,8 +14,9 @@ comments = {'firstPost': ['Web security is very important']}
 @app.after_request
 def add_header(response):
     response.headers['Content-Security-Policy'] = "default-src 'self'; script-src " \
-                                                  "https://code.jquery.com/jquery-3.3.1.slim.min.js " \
-                                                  "https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js 'self' "
+                                                  "https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js " \
+                                                  "https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js 'self'; " \
+                                                  "style-src 'self'; img-src 'self'; upgrade-insecure-requests; form-action 'self' "
     return response
 
 
@@ -33,11 +36,14 @@ def hello_world():
 
 @app.route('/index', methods=('GET', 'POST'))
 def index():
-    if request.method == 'POST':
-        postName = request.form['post']
-        comment = request.form['comment']
-        comments[postName].append(comment)
-    return render_template('post.html', posts=posts, comments=comments)
+    for i in users:
+        if i in session['user_id']:
+            if request.method == 'POST':
+                postName = request.form['post']
+                comment = request.form['comment']
+                comments[postName].append(comment)
+            return render_template('third.html', posts=posts, comments=comments)
+    return redirect(url_for('hello_world'))
 
 
 if __name__ == '__main__':
