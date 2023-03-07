@@ -13,7 +13,7 @@ comments = {'firstPost': ['Web security is very important']}
 
 @app.after_request
 def add_header(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src https://cdn.jsdelivr.net:* 'self' style-src 'self'; img-src 'self'; form-action 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src https://cdn.jsdelivr.net/ 'self' style-src 'self'; img-src 'self'; form-action 'self'"
     return response
 
 
@@ -34,12 +34,13 @@ def hello_world():
 @app.route('/index', methods=('GET', 'POST'))
 def index():
     for i in users:
-        if i == session['user_id']:
-            if request.method == 'POST':
-                postName = request.form['post']
-                comment = request.form['comment']
-                comments[postName].append(comment)
-            return render_template('post.html', posts=posts, comments=comments)
+        if 'user_id' in session:
+            if i == session['user_id']:
+                if request.method == 'POST':
+                    postName = request.form['post']
+                    comment = request.form['comment']
+                    comments[postName].append(comment)
+                return render_template('post.html', posts=posts, comments=comments)
     return redirect(url_for('hello_world'))
 
 

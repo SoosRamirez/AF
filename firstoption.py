@@ -37,12 +37,13 @@ def hello_world():
 @app.route('/index', methods=('GET', 'POST'))
 def index():
     for i in users:
-        if i == session['user_id']:
-            if request.method == 'POST':
-                postName = request.form['post']
-                comment = request.form['comment']
-                comments[postName].append(comment)
-            return render_template('post.html', posts=posts, comments=comments)
+        if 'user_id' in session:
+            if i == session['user_id']:
+                if request.method == 'POST':
+                    postName = request.form['post']
+                    comment = request.form['comment']
+                    comments[postName].append(comment)
+                return render_template('post.html', posts=posts, comments=comments)
     return redirect(url_for('hello_world'))
 
 
