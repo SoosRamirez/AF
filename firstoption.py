@@ -16,7 +16,7 @@ def add_header(response):
     response.headers['Content-Security-Policy'] = "default-src 'self'; script-src " \
                                                   "https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js " \
                                                   "https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js 'self'; " \
-                                                  "style-src 'self'; img-src 'self'; upgrade-insecure-requests; form-action 'self' "
+                                                  "style-src 'self'; img-src 'self'; form-action 'self' "
     return response
 
 
@@ -42,7 +42,7 @@ def index():
                 postName = request.form['post']
                 comment = request.form['comment']
                 comments[postName].append(comment)
-            return render_template('third.html', posts=posts, comments=comments)
+            return render_template('post.html', posts=posts, comments=comments)
     return redirect(url_for('hello_world'))
 
 

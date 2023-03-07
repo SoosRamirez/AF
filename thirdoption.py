@@ -13,7 +13,7 @@ comments = {'firstPost': ['Web security is very important']}
 
 @app.after_request
 def add_header(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src https://cdn.jsdelivr.net:* 'self' style-src 'self'; img-src 'self'; upgrade-insecure-requests; form-action 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src https://cdn.jsdelivr.net:* 'self' style-src 'self'; img-src 'self'; form-action 'self'"
     return response
 
 
