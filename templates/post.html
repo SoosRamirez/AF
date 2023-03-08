@@ -11,6 +11,7 @@
     <h1>Posts</h1>
 </header>
 <body>
+<a href="{{ url_for('logout') }}">logout</a>
 {% for post in posts %}
     <h1>{{ post }}</h1>
     <p>{{ posts[post] }}</p>
