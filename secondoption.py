@@ -45,11 +45,9 @@ def index():
     return redirect(url_for('hello_world'))
 
 
-@app.route('/logout', methods=('GET', 'POST'))
+@app.route('/logout', methods=['GET'])
 def logout():
-    print('hello')
     session.clear()
-    print('idk')
     return redirect(url_for('hello_world'))
 
 
